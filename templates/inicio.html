@@ -20,44 +20,51 @@
 <fieldset>
 
 <!-- Form Name -->
-<legend>Client</legend>
+<legend>Familia</legend>
 
 <!-- Text input-->
 <div class="form-group">
-  <label class="col-md-4 control-label" for="client-name">Name</label>  
+  <label class="col-md-4 control-label" for="client-name">Nombre</label>  
   <div class="col-md-4">
-  <input id="client-name" name="client-name" type="text" placeholder="your client's name" class="form-control input-md">
-  <span class="help-block">Full name of your customer</span>  
+  <input id="client-name" name="client-name" type="text" placeholder="Escriba el Nombre" class="form-control input-md"> 
   </div>
 </div>
 
-<!-- Prepended text-->
+<!-- Text input-->
 <div class="form-group">
-  <label class="col-md-4 control-label" for="client-email">Email</label>
+  <label class="col-md-4 control-label" for="client-name">Apellido</label>  
   <div class="col-md-4">
-    <div class="input-group">
-      <span class="input-group-addon">@</span>
-      <input id="client-email" name="client-email" class="form-control" placeholder="yourname@yourdomain.com" type="text">
-    </div>
-    <p class="help-block">Email of your client</p>
+  <input id="client-name" name="client-name" type="text" placeholder="Escriba el Apellido" class="form-control input-md">
   </div>
 </div>
 
+<div class="form-group">
+  <label class="col-md-4 control-label" for="client-name">Edad</label>  
+  <div class="col-md-4">
+  <input id="client-name" name="client-name" type="number" placeholder="Digite su edad" class="form-control input-md">
+  </div>
+</div>
 
+<div class="form-group">
+  <label class="col-md-4 control-label" for="client-name">Telefono</label>  
+  <div class="col-md-4">
+  <input id="client-name" name="client-name" type="number" placeholder="Digite su telefono" class="form-control input-md">
+  </div>
+</div>
 
 <!-- Multiple Radios -->
 <div class="form-group">
-  <label class="col-md-4 control-label" for="client-status">Client status</label>
+  <label class="col-md-4 control-label" for="client-status">Estado del familiar</label>
   <div class="col-md-4">
   <div class="radio">
     <label for="client-status-0">
-      <input type="radio" name="client-status" id="client-status-0" value="active" checked="checked">
+      <input type="radio" name="client-status" id="client-status-0" value="Activo" checked="checked">
       Active
     </label>
 	</div>
   <div class="radio">
     <label for="client-status-1">
-      <input type="radio" name="client-status" id="client-status-1" value="inactive">
+      <input type="radio" name="client-status" id="client-status-1" value="Inactivo">
       Inactive
     </label>
 	</div>
@@ -69,15 +76,13 @@
 <div class="form-group">
   <label class="col-md-4 control-label" for="btn-save"></label>
   <div class="col-md-4">
-    <button id="btn-save" name="btn-save" class="btn btn-success">Save</button>
+    <button id="btn-save" name="btn-save" class="btn btn-success">Guardar</button>
   </div>
 </div>
 
 </fieldset>
 </form>
-
-
-	   </div> 
+</div> 
 	    
 
 
@@ -92,33 +97,7 @@
         <a class="btn btn-default-btn-xs btn-primary"><i class="glyphicon glyphicon-refresh"></i> Refresh</a>
         <a class="btn btn-default-btn-xs btn-success"><i class="glyphicon glyphicon-plus"></i> New</a>
     </div>
-    <table class="table table-bordered table-condensed table-hover">
-        <thead>
-            <tr>
-                <td>Name</td>
-                <th>Email</th>
-                <th>Status</th>
-                <th>Actions</th>
-            </tr>
-                
-        </thead>
-        <tbody id="form-list-client-body">
-            <tr>
-                <td>Eduardo</td>
-                <td>eluz@counterpath.com</td>
-                <td>Active</td>
-                <td>
-                    <a title="view this user" class="btn btn-default btn-sm "> <i class="glyphicon glyphicon-eye-open text-primary"></i> </a>
-                    <a title="edit this user" class="btn btn-default btn-sm "> <i class="glyphicon glyphicon-edit text-primary"></i> </a>
-                    <a title="delete this user" class="btn btn-default btn-sm "> <i class="glyphicon glyphicon-trash text-danger"></i> </a>
-                    
-                    <a title="check credit" class="btn btn-default btn-sm "> <i class="glyphicon glyphicon-duplicate text-danger"></i> </a>
-                    <a title="generate invoice" class="btn btn-default btn-sm "> <i class="glyphicon glyphicon-level-up bg-success"></i> </a>
-                   
-                </td>
-            </tr>
-        </tbody>
-    </table>
+    <div id="table_list"></div>
     </form>
 
     
@@ -188,3 +167,14 @@
 	    
 	</div>
 </div>
+<script>
+$(document).ready( getListaFamily() );
+
+function getListaFamily(){
+            
+            $('#table_list').html("<div class='d-flex justify-content-center'><img src='{{url_for('static', filename = 'img/loader.gif')}}' alt='loader' ></div>");
+               $.get("/select", function(data) {
+                    $("#table_list").html(data);
+                });
+            }
+</script>
