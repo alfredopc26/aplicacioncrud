@@ -1,0 +1,57 @@
+
+    <div class="form-group">
+        <label class="col-md-12 control-label" for="identificacion">Identificacion</label>  
+        <div class="col-md-12">
+        <input name="identificacion" type="text" value="{{ fila[0].identificacion }}" class="form-control input-md"> 
+        </div>
+      </div>
+      <!-- Text input-->
+      <div class="form-group">
+        <label class="col-md-12 control-label" for="client-name">Nombre</label>  
+        <div class="col-md-12">
+        <input  name="nombre" type="text" placeholder="Escriba el Nombre" value="{{ fila[0].nombre }}" class="form-control input-md"> 
+        </div>
+      </div>
+  
+      <!-- Text input-->
+      <div class="form-group">
+        <label class="col-md-12 control-label" for="client-name">Apellido</label>  
+        <div class="col-md-12">
+        <input name="apellido" type="text" placeholder="Escriba el Apellido"  value="{{ fila[0].apellido }}"class="form-control input-md">
+        </div>
+      </div>
+  
+      <div class="form-group">
+        <label class="col-md-12 control-label" for="client-name">Edad</label>  
+        <div class="col-md-12">
+        <input name="edad" type="number" placeholder="Digite su edad"  value="{{ fila[0].edad }}" class="form-control input-md">
+        </div>
+      </div>
+  
+      <div class="form-group">
+        <label class="col-md-12 control-label" for="client-name">Celular</label>  
+        <div class="col-md-12">
+        <input name="celular" type="number" placeholder="Digite su telefono" value="{{ fila[0].celular }}" class="form-control input-md">
+        </div>
+      </div>
+  
+      <!-- Multiple Radios -->
+      <div class="form-group">
+        <label class="col-md-12 control-label" for="client-status">Estado del familiar</label>
+        <div class="col-md-12">
+        <div class="radio">
+          <label for="client-status-0">
+            <input type="radio" name="estado" value="A" checked="checked">
+            Active
+          </label>
+        </div>
+        <div class="radio">
+          <label for="client-status-1">
+            <input type="radio" name="estado" value="I">
+            Inactive
+          </label>
+        </div>
+        </div>
+      </div>
+  
+  

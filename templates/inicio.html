@@ -1,180 +1,146 @@
-<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-<!------ Include the above in your HEAD tag ---------->
-
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">  <title>Desarrollo KP</title>
+</head>
+<body>
 
 <div class="container">
 	<div class="row">
-	    
-	    
-<link href="http://fontawesome.io/assets/font-awesome/css/font-awesome.css" rel="stylesheet" media="screen">
-<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" type="text/css" rel="stylesheet">
-
-
-
-<!-- FORM  -->	    
-	   <div class="col-md-12">
-	       
-	    <form class="form-horizontal" id="form-edit-client">
-<fieldset>
-
-<!-- Form Name -->
-<legend>Familia</legend>
-
-<!-- Text input-->
-<div class="form-group">
-  <label class="col-md-4 control-label" for="client-name">Nombre</label>  
-  <div class="col-md-4">
-  <input id="client-name" name="client-name" type="text" placeholder="Escriba el Nombre" class="form-control input-md"> 
-  </div>
-</div>
-
-<!-- Text input-->
-<div class="form-group">
-  <label class="col-md-4 control-label" for="client-name">Apellido</label>  
-  <div class="col-md-4">
-  <input id="client-name" name="client-name" type="text" placeholder="Escriba el Apellido" class="form-control input-md">
-  </div>
-</div>
-
-<div class="form-group">
-  <label class="col-md-4 control-label" for="client-name">Edad</label>  
-  <div class="col-md-4">
-  <input id="client-name" name="client-name" type="number" placeholder="Digite su edad" class="form-control input-md">
-  </div>
-</div>
-
-<div class="form-group">
-  <label class="col-md-4 control-label" for="client-name">Telefono</label>  
-  <div class="col-md-4">
-  <input id="client-name" name="client-name" type="number" placeholder="Digite su telefono" class="form-control input-md">
-  </div>
-</div>
-
-<!-- Multiple Radios -->
-<div class="form-group">
-  <label class="col-md-4 control-label" for="client-status">Estado del familiar</label>
-  <div class="col-md-4">
-  <div class="radio">
-    <label for="client-status-0">
-      <input type="radio" name="client-status" id="client-status-0" value="Activo" checked="checked">
-      Active
-    </label>
-	</div>
-  <div class="radio">
-    <label for="client-status-1">
-      <input type="radio" name="client-status" id="client-status-1" value="Inactivo">
-      Inactive
-    </label>
-	</div>
-  </div>
-</div>
-
-
-<!-- Button -->
-<div class="form-group">
-  <label class="col-md-4 control-label" for="btn-save"></label>
-  <div class="col-md-4">
-    <button id="btn-save" name="btn-save" class="btn btn-success">Guardar</button>
-  </div>
-</div>
-
-</fieldset>
-</form>
-</div> 
-	    
-
-
-
 <!-- LIST -->
-<div class=col-md-12>
-    
-    <form id="form-list-client">
-            <legend>List of clients</legend>
-    
-    <div class="pull-right">
-        <a class="btn btn-default-btn-xs btn-primary"><i class="glyphicon glyphicon-refresh"></i> Refresh</a>
-        <a class="btn btn-default-btn-xs btn-success"><i class="glyphicon glyphicon-plus"></i> New</a>
+        <div class=col-md-12>
+        
+        <legend>Lista de familiares</legend>
+        <div class="pull-right">
+            <a class="btn btn-default-btn-xs btn-primary" id="recargar"><i class="glyphicon glyphicon-refresh"></i> Refresh</a>
+            <a class="btn btn-default-btn-xs btn-primary" id="agregarFamilia"><i class="glyphicon glyphicon-plus"></i> Agregar Familiar</a>
+        </div>
+        <div id="table_list"></div>
     </div>
-    <div id="table_list"></div>
-    </form>
-
-    
-</div>
-
-
-<br> 
-
-<!-- view -->
-
-<div class="col-md-12">
-    
-    <legend>View client</legend>
-    
-    <div >
-        
-              <div class2=" col-md-9 col-lg-9 "> 
-                  <table class="table table-user-information">
-                    <tbody>
-                      <tr>
-                        <td>Name:</td>
-                        <td>Andre Silva</td>
-                      </tr>
-                      <tr>
-                        <td>Email</td>
-                        <td><a href="mailto:info@support.com">info@support.com</a></td>
-                      </tr>
-                    </tbody>
-                  </table>
-            </div>
-        
-        
-    </div>
-            <div class="panel with-nav-tabs panel-default">
-                <div class="panel-heading">
-                        <ul class="nav nav-tabs">
-                            <li class="active"><a href="#tab1default" data-toggle="tab">Default 1</a></li>
-                            <li><a href="#tab2default" data-toggle="tab">Default 2</a></li>
-                            
-                            <li><a href="#tab3default" data-toggle="tab">Default 3</a></li>
-                            <!--
-                            <li class="dropdown">
-                                <a href="#" data-toggle="dropdown">Dropdown <span class="caret"></span></a>
-                                <ul class="dropdown-menu" role="menu">
-                                    <li><a href="#tab4default" data-toggle="tab">Default 4</a></li>
-                                    <li><a href="#tab5default" data-toggle="tab">Default 5</a></li>
-                                </ul>
-                            </li>
-                            -->
-                        </ul>
-                </div>
-                <div class="panel-body">
-                    <div class="tab-content">
-                        <div class="tab-pane fade in active" id="tab1default">Default 1</div>
-                        <div class="tab-pane fade" id="tab2default">Default 2</div>
-                        <div class="tab-pane fade" id="tab3default">Default 3</div>
-                        <!--
-                        <div class="tab-pane fade" id="tab4default">Default 4</div>
-                        <div class="tab-pane fade" id="tab5default">Default 5</div>
-                        -->
-                    </div>
-                </div>
-            </div>
-
-</div>
-	    
-	    
+   
 	</div>
+<div class="modal fade" id="ModalIngresar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Ingresar Familiar</h5>
+              <a href="#" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+              </a>
+          </div>
+          <div id="insertar_familiar"></div>
+          <div class="modal-footer">
+              <button  data-dismiss="modal"  class="btn btn-outline-danger" >Cancelar</button>
+              <button id='guardarFamiliar' class="btn btn-outline-primary" >Guardar cambios</button>
+          </div>
+      </div>
+  </div>
 </div>
-<script>
-$(document).ready( getListaFamily() );
 
-function getListaFamily(){
-            
-            $('#table_list').html("<div class='d-flex justify-content-center'><img src='{{url_for('static', filename = 'img/loader.gif')}}' alt='loader' ></div>");
-               $.get("/select", function(data) {
-                    $("#table_list").html(data);
-                });
-            }
+<div class="modal fade" id="ModalEditar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Editar Familiar</h5>
+              <a href="#" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+              </a>
+          </div>
+          <div id="editar_modal"></div>
+          <div class="modal-footer">
+              <button  data-dismiss="modal"  class="btn btn-outline-danger" >Cancelar</button>
+              <button id='editarFamiliar' class="btn btn-outline-primary" >Guardar cambios</button>
+          </div>
+      </div>
+  </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+<script>
+    $(document).ready( getListaFamily() );
+
+    function getListaFamily(){
+      
+      $('#table_list').html("<div class='d-flex justify-content-center'><img src='{{url_for('static', filename = 'img/loader.gif')}}' alt='loader' ></div>");
+        $.get("/select", function(data) {
+              $("#table_list").html(data);
+          });
+    }
+
+    $(document).on('click', '#guardarFamiliar',  function(){
+                     
+            var formData = {
+                'identificacion'     : $('input[name=identificacion]').val(), 
+                'nombre'             : $('input[name=nombre]').val(),
+                'apellido'           : $('input[name=apellido]').val(),
+                'edad'               : $('input[name=edad]').val(),
+                'celular'            : $('input[name=celular]').val(),
+                'estado'             : $('input[name=estado]').val()
+            };
+            $('#ModalIngresar').modal('hide');
+            $.ajax({
+                url: '/insertar',
+                type: 'POST',
+                data: formData,
+                success: function (data) {
+                  getListaFamily();				
+                }
+            });
+    });
+
+    $(document).on('click', '#agregarFamilia',  function(){
+
+
+            $('#ModalIngresar').modal({
+                show: true
+            });
+            $.get("/agregar_view", function(data) {
+                $("#insertar_familiar").html('');
+                $("#insertar_familiar").html(data);
+            });
+    });
+
+    $(document).on('click', '#editar_familiar',  function(){
+
+        var identificacion = $(this).data('id');
+
+            $('#ModalEditar').modal({
+                show: true
+            });
+
+            var formData = {
+                    'id' : identificacion
+                };
+
+            $('#editar_modal').html("<div class='d-flex justify-content-center'><img src='{{url_for('static', filename = 'img/loader.gif')}}' alt='loader' ></div>");
+            $.ajax({
+                url: '/editar_view',
+                type: 'GET',
+                data: formData,
+                success: function (data) {
+                    $('#editar_modal').html(data);	
+                }
+              });
+      });
+
+    $(document).on('click', '#eliminar_familiar',  function(){
+
+
+            $('#ModalIngresar').modal({
+                show: true
+            });
+            $.get("/agregar_view", function(data) {
+                $("#insertar_familiar").html('');
+                $("#insertar_familiar").html(data);
+            });
+        });
+              
+
+
 </script>
+</body>
+</html>
+

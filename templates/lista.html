@@ -1,27 +1,30 @@
 <table class="table table-bordered table-condensed table-hover">
     <thead>
         <tr>
-            <td>Name</td>
-            <th>Email</th>
-            <th>Status</th>
-            <th>Actions</th>
+            <th>Identificacion</th>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Edad</th>
+            <th>Celular</th>
+            <th>Estado</th>
+            <th>Accion</th>
         </tr>
             
     </thead>
     <tbody id="form-list-client-body">
+        {% for fila in filas %}
         <tr>
-            <td>Eduardo</td>
-            <td>eluz@counterpath.com</td>
-            <td>Active</td>
+            <td>{{ fila.identificacion }}</td>
+            <td>{{ fila.nombre }}</td>
+            <td>{{ fila.apellido }}</td>
+            <td>{{ fila.edad }}</td>
+            <td>{{ fila.celular }}</td>
+            <td>{{ fila.Estado }}</td>
             <td>
-                <a title="view this user" class="btn btn-default btn-sm "> <i class="glyphicon glyphicon-eye-open text-primary"></i> </a>
-                <a title="edit this user" class="btn btn-default btn-sm "> <i class="glyphicon glyphicon-edit text-primary"></i> </a>
-                <a title="delete this user" class="btn btn-default btn-sm "> <i class="glyphicon glyphicon-trash text-danger"></i> </a>
-                
-                <a title="check credit" class="btn btn-default btn-sm "> <i class="glyphicon glyphicon-duplicate text-danger"></i> </a>
-                <a title="generate invoice" class="btn btn-default btn-sm "> <i class="glyphicon glyphicon-level-up bg-success"></i> </a>
-               
+                <a title="edit this user" class="btn btn-default btn-sm " id="editar_familiar" data-id="{{ fila.identificacion }}"> <i class="fa fa-edit text-primary"></i> </a>
+                <a title="delete this user" class="btn btn-default btn-sm " id="eliminar_familiar" data-id="{{ fila.identificacion }}"> <i class="fa fa-trash text-danger"></i> </a>           
             </td>
         </tr>
+        {% endfor %}
     </tbody>
 </table>

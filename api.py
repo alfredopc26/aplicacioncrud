@@ -1,26 +1,35 @@
 import pymysql
 from app import app
 from con import mysql
-from flask import jsonify, request, flash
+from flask import jsonify, request, flash, render_template
 
 
 #GET ALL
 @app.route('/')
 @app.route('/select', methods=['GET'])
-def user():
-    try:
+def lista():
+    if request.method == 'GET':
         conn = mysql.connect()
         cur = conn.cursor(pymysql.cursors.DictCursor)
         cur.execute("SELECT * FROM familia")
         rows = cur.fetchall()
-        resp=jsonify(rows)
-        resp.status_code = 200
-        return resp
-    except Exception as e:
-        print(e)
-    finally:
-        cur.close()
-        conn.close()
+    return render_template("lista.html", filas=rows)
+
+@app.route('/agregar_view', methods=['GET'])
+def agregar_view():
+    if request.method == 'GET':
+        return render_template("agregar.html")
+
+@app.route('/editar_view', methods=['GET'])
+def editar_view():
+    identificacion = str(request.args.get('id'))
+    conn = mysql.connect()
+    cur = conn.cursor(pymysql.cursors.DictCursor)
+    cur.execute("select * from recursos.familia where identificacion='" + identificacion + "'")
+    rows = cur.fetchall()
+    return render_template("modificar.html", fila=rows)
+
+
 
 
 #GET ONE
@@ -42,35 +51,26 @@ def userone(id):
 
 
 #INSERT
-@app.route('/insert', methods=['POST'])
-def inst():
-    conn = mysql.connect()
-    cur = conn.cursor(pymysql.cursors.DictCursor)
-    nombre = request.json['nombre']
-    apellido = request.json['apellido']
-    edad = request.json['edad']
-    celular = request.json['celular']
-    estado = request.json['esado']
-    identificacion = request.json['identificacion']
-    query = "insert into familia (identificacion, nombre, apellido, edad, celular, Estado) values ('"
-    + identificacion +"', '"
-    + nombre +"', '"
-    + apelliodo +"', '"
-    + edad +", '"
-    + celular +", '"
-    + Estado +", )"
-    cur.execute(query)
-    conn.commit()
-    cur.close()
-    output = {
-        'firstname' : request.json['firstname'], 
-        'lastname' : request.json['lastname'],
-         'Message': 'Success'
-         }
+@app.route("/insertar", methods=["GET", "POST"])
+def insertar_familia():
 
-
+    if request.method == 'POST':
+        identificacion = request.form['identificacion']
+        nombre = request.form['nombre']
+        apellido = request.form['apellido']
+        edad = request.form['edad']
+        celular = request.form['celular']
+        estado = request.form['estado']
+        conn = mysql.connect()
+        cur = conn.cursor(pymysql.cursors.DictCursor)
+        query = "insert into familia (identificacion, nombre, apellido, edad, celular, Estado) values ('" + identificacion + "', '" + nombre + "', '" + apellido + "', '" + edad + "', '" + celular + "', '" + estado + "')"
+        cur.execute(query)
+        conn.commit()
+        cur.close()
+        output = {'identificacion' : request.form['identificacion'], 'nombre' : request.form['nombre'], 'Message': 'Success'}
+    else:
+        output = {'identificacion' : '', 'nombre' : '', 'Message': 'Error no type Post'}
     return jsonify({'result' : output})
-
 
 #Update
 @app.route('/update/<id>', methods=['PUT'])
