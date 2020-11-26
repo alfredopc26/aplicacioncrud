@@ -1,30 +1,31 @@
-<table class="table table-bordered table-condensed table-hover">
-    <thead>
-        <tr>
-            <th>Identificacion</th>
-            <th>Nombre</th>
-            <th>Apellido</th>
-            <th>Edad</th>
-            <th>Celular</th>
-            <th>Estado</th>
-            <th>Accion</th>
-        </tr>
-            
-    </thead>
-    <tbody id="form-list-client-body">
-        {% for fila in filas %}
-        <tr>
-            <td>{{ fila.identificacion }}</td>
-            <td>{{ fila.nombre }}</td>
-            <td>{{ fila.apellido }}</td>
-            <td>{{ fila.edad }}</td>
-            <td>{{ fila.celular }}</td>
-            <td>{{ fila.Estado }}</td>
-            <td>
-                <a title="edit this user" class="btn btn-default btn-sm " id="editar_familiar" data-id="{{ fila.identificacion }}"> <i class="fa fa-edit text-primary"></i> </a>
-                <a title="delete this user" class="btn btn-default btn-sm " id="eliminar_familiar" data-id="{{ fila.identificacion }}"> <i class="fa fa-trash text-danger"></i> </a>           
-            </td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
+<div class="table-responsive">
+    <table id="datatables-lista" class="table table-condensed">
+        <thead>
+            <tr>
+                <th>Identificacion</th>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Edad</th>
+                <th>Celular</th>
+                <th>Estado</th>
+                <th>Accion</th>
+            </tr>           
+        </thead>
+        <tbody>
+            {% for fila in filas %}
+            <tr>
+                <td>{{ fila.identificacion }}</td>
+                <td>{{ fila.nombre }}</td>
+                <td>{{ fila.apellido }}</td>
+                <td>{{ fila.edad }}</td>
+                <td>{{ fila.celular }}</td>
+                <td>{{ fila.Estado }}</td>
+                <td>
+                    <a title="edit this user" class="btn btn-default btn-sm " id="editarFamilia" data-id="{{ fila.identificacion }}"> <i class="fa fa-edit text-primary"></i> </a>
+                    <a title="delete this user" class="btn btn-default btn-sm " id="eliminarFamilia" data-id="{{ fila.identificacion }}"> <i class="fa fa-trash text-danger"></i> </a>           
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>

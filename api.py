@@ -30,26 +30,6 @@ def editar_view():
     return render_template("modificar.html", fila=rows)
 
 
-
-
-#GET ONE
-@app.route('/select/<id>', methods=['GET'])
-def userone(id):
-    try:
-        conn = mysql.connect()
-        cur = conn.cursor(pymysql.cursors.DictCursor)
-        cur.execute("SELECT * FROM FlaskMysql WHERE NAMEID ="+id)
-        rows = cur.fetchall()
-        resp=jsonify(rows)
-        resp.status_code = 200
-        return resp
-    except Exception as e:
-        print(e)
-    finally:
-        cur.close()
-        conn.close()
-
-
 #INSERT
 @app.route("/insertar", methods=["GET", "POST"])
 def insertar_familia():
@@ -73,34 +53,41 @@ def insertar_familia():
     return jsonify({'result' : output})
 
 #Update
-@app.route('/update/<id>', methods=['PUT'])
-def updates(id):
-    conn = mysql.connect()
-    cur = conn.cursor(pymysql.cursors.DictCursor)
-    firstname = request.json['firstname']
-    lastname = request.json['lastname']
-    query = "update FlaskMysql set firstname = '"+ firstname +"', lastname = '"+ lastname +"' Where NameId = '"+ id +"'"
-    cur.execute(query)
-    conn.commit()
-    cur.close()
-    output = {'firstname' : request.json['firstname'], 'lastname' : request.json['lastname'], 'Message': 'Success'}
-
-
+@app.route('/actualizar', methods=['POST'])
+def editar_familia():
+    if request.method == 'POST':
+        identificacion = request.form['identificacion']
+        nombre = request.form['nombre']
+        apellido = request.form['apellido']
+        edad = request.form['edad']
+        celular = request.form['celular']
+        estado = request.form['estado']
+        conn = mysql.connect()
+        cur = conn.cursor(pymysql.cursors.DictCursor)
+        query = "update familia set nombre = '"+ nombre +"', apellido = '"+ apellido +"', edad = '"+ edad +"', celular = '"+ celular +"', estado = '"+ estado +"' where identificacion = '"+ identificacion +"'"
+        cur.execute(query)
+        conn.commit()
+        cur.close()
+        output = {'identificacion' : request.form['identificacion'], 'nombre' : request.form['nombre'], 'Message': 'Success'}
+    else:
+        output = {'identificacion' : '', 'nombre' : '', 'Message': 'Error no type Post'}
     return jsonify({'result' : output})
 
 
 #DELETE
-@app.route('/delete/<id>', methods=['DELETE'])
-def delete(id):
-    conn = mysql.connect()
-    cur = conn.cursor(pymysql.cursors.DictCursor)
-    firstname = request.json['firstname']
-    lastname = request.json['lastname']
-    query = "DELETE FROM FLASKMYSQL Where NameId = '"+ id +"'"
-    cur.execute(query)
-    conn.commit()
-    cur.close()
-    output = {'firstname' : request.json['firstname'], 'lastname' : request.json['lastname'], 'Message': 'DELETED'}
+@app.route('/borrar', methods=['POST'])
+def borrar_familia():
+    if request.method == 'POST':
+        identificacion = request.form['id']
+        conn = mysql.connect()
+        cur = conn.cursor(pymysql.cursors.DictCursor)
+        query = "DELETE FROM familia where identificacion = '"+ identificacion +"'"
+        cur.execute(query)
+        conn.commit()
+        cur.close()
+        output = {'eliminado' : identificacion, 'Message': 'Success'}
+    else:
+        output = {'identificacion' : '', 'Message': 'Error no type Post'}
     return jsonify({'result' : output})
     
 if __name__ == "__main__":

@@ -3,7 +3,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">  <title>Desarrollo KP</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous"> 
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css" > 
+  <title>Desarrollo KP</title>
 </head>
 <body>
 
@@ -11,13 +13,18 @@
 	<div class="row">
 <!-- LIST -->
         <div class=col-md-12>
-        
-        <legend>Lista de familiares</legend>
-        <div class="pull-right">
-            <a class="btn btn-default-btn-xs btn-primary" id="recargar"><i class="glyphicon glyphicon-refresh"></i> Refresh</a>
-            <a class="btn btn-default-btn-xs btn-primary" id="agregarFamilia"><i class="glyphicon glyphicon-plus"></i> Agregar Familiar</a>
-        </div>
-        <div id="table_list"></div>
+          <legend>Lista de familiares</legend>
+          <div class="card">
+            <div class="card-header">
+              <div class="pull-right">
+                <a class="btn btn-default-btn-xs btn-primary" id="agregarFamilia"><i class="glyphicon glyphicon-plus"></i> Agregar Familiar</a>
+               </div>
+            </div>
+            <div class="card-body">
+              <div id="table_list"></div>
+            </div>
+          </div>
+
     </div>
    
 	</div>
@@ -33,13 +40,13 @@
           <div id="insertar_familiar"></div>
           <div class="modal-footer">
               <button  data-dismiss="modal"  class="btn btn-outline-danger" >Cancelar</button>
-              <button id='guardarFamiliar' class="btn btn-outline-primary" >Guardar cambios</button>
+              <button id='submitIngresar' class="btn btn-outline-primary" >Guardar cambios</button>
           </div>
       </div>
   </div>
 </div>
 
-<div class="modal fade" id="ModalEditar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="ModalModificar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
       <div class="modal-content">
           <div class="modal-header">
@@ -51,93 +58,158 @@
           <div id="editar_modal"></div>
           <div class="modal-footer">
               <button  data-dismiss="modal"  class="btn btn-outline-danger" >Cancelar</button>
-              <button id='editarFamiliar' class="btn btn-outline-primary" >Guardar cambios</button>
+              <button id='submitModificar' class="btn btn-outline-primary" >Guardar cambios</button>
           </div>
       </div>
   </div>
 </div>
 
+<div class="modal" id="ModalBorrar" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Elimiar Familiar</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div id="mensaje_eliminar"></div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">NO</button>
+        <button type="button" class="btn btn-primary" id="submitBorrar" >SI</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+<script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
 <script>
-    $(document).ready( getListaFamily() );
+    $(document).ready( getListFamily() );
 
-    function getListaFamily(){
+    function getListFamily(){
       
       $('#table_list').html("<div class='d-flex justify-content-center'><img src='{{url_for('static', filename = 'img/loader.gif')}}' alt='loader' ></div>");
         $.get("/select", function(data) {
               $("#table_list").html(data);
+              $('#datatables-lista').DataTable();
           });
     }
 
-    $(document).on('click', '#guardarFamiliar',  function(){
-                     
-            var formData = {
-                'identificacion'     : $('input[name=identificacion]').val(), 
-                'nombre'             : $('input[name=nombre]').val(),
-                'apellido'           : $('input[name=apellido]').val(),
-                'edad'               : $('input[name=edad]').val(),
-                'celular'            : $('input[name=celular]').val(),
-                'estado'             : $('input[name=estado]').val()
-            };
-            $('#ModalIngresar').modal('hide');
-            $.ajax({
-                url: '/insertar',
-                type: 'POST',
-                data: formData,
-                success: function (data) {
-                  getListaFamily();				
-                }
-            });
-    });
+    
 
     $(document).on('click', '#agregarFamilia',  function(){
 
-
             $('#ModalIngresar').modal({
                 show: true
             });
+            $('#editar_modal').html("<div class='d-flex justify-content-center'><img src='{{url_for('static', filename = 'img/loader.gif')}}' alt='loader' ></div>");
             $.get("/agregar_view", function(data) {
-                $("#insertar_familiar").html('');
                 $("#insertar_familiar").html(data);
             });
     });
 
-    $(document).on('click', '#editar_familiar',  function(){
+    $(document).on('click', '#editarFamilia',  function(){
 
         var identificacion = $(this).data('id');
 
-            $('#ModalEditar').modal({
+            $('#ModalModificar').modal({
                 show: true
             });
 
-            var formData = {
+        var formData = {
                     'id' : identificacion
                 };
 
-            $('#editar_modal').html("<div class='d-flex justify-content-center'><img src='{{url_for('static', filename = 'img/loader.gif')}}' alt='loader' ></div>");
-            $.ajax({
-                url: '/editar_view',
-                type: 'GET',
-                data: formData,
-                success: function (data) {
-                    $('#editar_modal').html(data);	
-                }
-              });
+        $('#editar_modal').html("<div class='d-flex justify-content-center'><img src='{{url_for('static', filename = 'img/loader.gif')}}' alt='loader' ></div>");
+        $.ajax({
+            url: '/editar_view',
+            type: 'GET',
+            data: formData,
+            success: function (data) {
+                $('#editar_modal').html(data);	
+            }
+          });
       });
 
-    $(document).on('click', '#eliminar_familiar',  function(){
+    $(document).on('click', '#eliminarFamilia',  function(){
 
+      let id = $(this).data('id');
 
-            $('#ModalIngresar').modal({
-                show: true
-            });
-            $.get("/agregar_view", function(data) {
-                $("#insertar_familiar").html('');
-                $("#insertar_familiar").html(data);
-            });
+        $('#ModalBorrar').modal({
+            show: true
         });
-              
+
+        $('#mensaje_eliminar').html('Desea eliminar el familiar ' + id + '?');	
+        $("#submitBorrar").attr("data-identificacion", id);
+
+        });
+
+        
+    $(document).on('click', '#submitIngresar',  function(){
+                  
+                  var formData = {
+                      'identificacion'     : $('input[name=identificacion]').val(), 
+                      'nombre'             : $('input[name=nombre]').val(),
+                      'apellido'           : $('input[name=apellido]').val(),
+                      'edad'               : $('input[name=edad]').val(),
+                      'celular'            : $('input[name=celular]').val(),
+                      'estado'             : $('input[name=estado]').val()
+                  };
+                  $('#ModalIngresar').modal('hide');
+                  $.ajax({
+                      url: '/insertar',
+                      type: 'POST',
+                      data: formData,
+                      success: function (data) {
+                        getListFamily();				
+                      }
+                  });
+          });
+
+    $(document).on('click', '#submitModificar',  function(){
+                
+                var formData = {
+                      'identificacion'     : $('input[name=identificacion]').val(), 
+                      'nombre'             : $('input[name=nombre]').val(),
+                      'apellido'           : $('input[name=apellido]').val(),
+                      'edad'               : $('input[name=edad]').val(),
+                      'celular'            : $('input[name=celular]').val(),
+                      'estado'             : $('input[name=estado]').val()
+                  };
+
+                $('#ModalModificar').modal('hide');
+                $.ajax({
+                    url: '/actualizar',
+                    type: 'POST',
+                    data: formData,
+                    success: function (data) {
+                      getListFamily();				
+                    }
+                });
+        });
+      
+    $(document).on('click', '#submitBorrar',  function(){
+                
+                let identificacion = $(this).data('identificacion');
+
+                let formData = {
+                      'id' : identificacion
+                  };
+
+                $('#ModalBorrar').modal('hide');
+                $.ajax({
+                    url: '/borrar',
+                    type: 'POST',
+                    data: formData,
+                    success: function (data) {
+                      getListFamily();				
+                    }
+                });
+        });
 
 
 </script>
