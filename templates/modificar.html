@@ -37,20 +37,14 @@
   
       <!-- Multiple Radios -->
       <div class="form-group">
-        <label class="col-md-12 control-label" for="client-status">Estado del familiar</label>
+        <label class="col-md-12 control-label" for="client-status">Categoria del familiar</label>
         <div class="col-md-12">
-        <div class="radio">
-          <label for="client-status-0">
-            <input type="radio" name="estado" value="A" checked="checked">
-            Active
-          </label>
-        </div>
-        <div class="radio">
-          <label for="client-status-1">
-            <input type="radio" name="estado" value="I">
-            Inactive
-          </label>
-        </div>
+          <select name="categoria" class="form-control" >
+            <option value="{{ fila[0].nombre_cat }}">{{ fila[0].nombre_cat }}</option>
+            {% for categoria in categorias %}
+            <option value="{{ categoria.idcategoria }}">{{ categoria.nombre_cat }}</option>
+            {% endfor %}
+          </select>
         </div>
       </div>
   

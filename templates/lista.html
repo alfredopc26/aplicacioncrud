@@ -7,7 +7,7 @@
                 <th>Apellido</th>
                 <th>Edad</th>
                 <th>Celular</th>
-                <th>Estado</th>
+                <th>Categoria</th>
                 <th>Accion</th>
             </tr>           
         </thead>
@@ -19,7 +19,7 @@
                 <td>{{ fila.apellido }}</td>
                 <td>{{ fila.edad }}</td>
                 <td>{{ fila.celular }}</td>
-                <td>{{ fila.Estado }}</td>
+                <td>{{ fila.nombre_cat }}</td>
                 <td>
                     <a title="edit this user" class="btn btn-default btn-sm " id="editarFamilia" data-id="{{ fila.identificacion }}"> <i class="fa fa-edit text-primary"></i> </a>
                     <a title="delete this user" class="btn btn-default btn-sm " id="eliminarFamilia" data-id="{{ fila.identificacion }}"> <i class="fa fa-trash text-danger"></i> </a>           

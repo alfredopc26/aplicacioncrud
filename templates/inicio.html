@@ -17,6 +17,7 @@
           <div class="card">
             <div class="card-header">
               <div class="pull-right">
+                <a class="btn btn-default-btn-xs btn-primary" id="agregarCategoria"><i class="glyphicon glyphicon-plus"></i> Agregar Categorias</a>
                 <a class="btn btn-default-btn-xs btn-primary" id="agregarFamilia"><i class="glyphicon glyphicon-plus"></i> Agregar Familiar</a>
                </div>
             </div>
@@ -84,6 +85,38 @@
   </div>
 </div>
 
+<div class="modal fade" id="ModalCategorias" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Categorias</h5>
+              <a href="#" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+              </a>
+          </div>
+          <div id="list_categorias"></div>
+
+          <form class="form-inline" role="form">
+            <div class="form-group">
+              <label class="sr-only" for="exampleInputEmail2">Email address</label>
+              <input type="email" class="form-control" id="exampleInputEmail2" placeholder="Enter email">
+            </div>
+            <div class="form-group">
+              <label class="sr-only" for="exampleInputPassword2">Password</label>
+              <input type="password" class="form-control" id="exampleInputPassword2" placeholder="Password">
+            </div>
+            <button type="submit" class="btn btn-default">Sign in</button>
+          </form>
+
+          <div class="modal-footer">
+              <button  data-dismiss="modal"  class="btn btn-outline-danger" >Cancelar</button>
+              <button id='submitModificar' class="btn btn-outline-primary" >Guardar cambios</button>
+          </div>
+      </div>
+  </div>
+</div>
+
+
 <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
 <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
@@ -106,7 +139,7 @@
             $('#ModalIngresar').modal({
                 show: true
             });
-            $('#editar_modal').html("<div class='d-flex justify-content-center'><img src='{{url_for('static', filename = 'img/loader.gif')}}' alt='loader' ></div>");
+            $('#insertar_familiar').html("<div class='d-flex justify-content-center'><img src='{{url_for('static', filename = 'img/loader.gif')}}' alt='loader' ></div>");
             $.get("/agregar_view", function(data) {
                 $("#insertar_familiar").html(data);
             });
@@ -148,7 +181,18 @@
 
         });
 
-        
+    $(document).on('click', '#agregarCategoria',  function(){
+
+      $('#ModalCategorias').modal({
+          show: true
+      });
+      $('#list_categorias').html("<div class='d-flex justify-content-center'><img src='{{url_for('static', filename = 'img/loader.gif')}}' alt='loader' ></div>");
+      $.get("/lista_categoria", function(data) {
+          $("#list_categorias").html(data);
+      });
+      });   
+
+
     $(document).on('click', '#submitIngresar',  function(){
                   
                   var formData = {
@@ -157,7 +201,7 @@
                       'apellido'           : $('input[name=apellido]').val(),
                       'edad'               : $('input[name=edad]').val(),
                       'celular'            : $('input[name=celular]').val(),
-                      'estado'             : $('input[name=estado]').val()
+                      'categoria'          : $('select[name=categoria]').val()
                   };
                   $('#ModalIngresar').modal('hide');
                   $.ajax({
@@ -178,7 +222,7 @@
                       'apellido'           : $('input[name=apellido]').val(),
                       'edad'               : $('input[name=edad]').val(),
                       'celular'            : $('input[name=celular]').val(),
-                      'estado'             : $('input[name=estado]').val()
+                      'categoria'          : $('select[name=categoria]').val()
                   };
 
                 $('#ModalModificar').modal('hide');

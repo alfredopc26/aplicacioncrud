@@ -1,0 +1,26 @@
+<div class="table-responsive">
+    <table id="datatables-lista" class="table table-condensed">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Nivel</th>
+                <th>Acceso</th>
+            </tr>           
+        </thead>
+        <tbody>
+            {% for categoria in categorias %}
+            <tr>
+                <td>{{ categoria.idcategorio }}</td>
+                <td>{{ categoria.nombre }}</td>
+                <td>{{ categoria.nivel }}</td>
+                <td>{{ categoria.acceso }}</td>
+                <td>
+                    <a title="edit this user" class="btn btn-default btn-sm " id="editarCategoria" data-id="{{ categoria.identificacion }}"> <i class="fa fa-edit text-primary"></i> </a>
+                    <a title="delete this user" class="btn btn-default btn-sm " id="eliminarCategoria" data-id="{{ categoria.identificacion }}"> <i class="fa fa-trash text-danger"></i> </a>           
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
